@@ -1,4 +1,4 @@
-package com.tamk.studentregister.controller;
+package com.tamk.studentregister.controller.api;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -19,7 +19,7 @@ import com.tamk.studentregister.service.StudentService;
 
 @RestController
 @RequestMapping("/api/students")
-public class StudentController {
+public class StudentRestController {
   @Autowired
   StudentService studentService;
 

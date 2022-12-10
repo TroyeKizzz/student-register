@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Expression utility objects</title>
+  </head>
+  <body>
+    <p>Title: <span th:text="${course.title}">title</span></p>
+    <p>Description: <span th:text="${course.description}">title</span></p>
+    <p>
+      Registrations: <span th:text="${course.registrations.size()}">title</span>
+    </p>
+    <form method="post" th:action="'/app/courses/' + ${course.id} + '/enroll'">
+      <input name="studentEmail" placeholder="Email" type="email" />
+      <button type="submit">Enroll</button>
+    </form>
+    <form method="get" action="/app/courses">
+      <button type="submit">Back</button>
+    </form>
+  </body>
+</html>

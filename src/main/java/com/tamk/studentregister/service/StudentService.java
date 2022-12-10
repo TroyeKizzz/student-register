@@ -18,6 +18,10 @@ public class StudentService {
     return studentRepository.findById(id);
   }
 
+  public Optional<Student> findStudentByEmail(String email) {
+    return studentRepository.findByEmail(email);
+  }
+
   public ArrayList<Student> findAll() {
     return studentRepository.findAll();
   }

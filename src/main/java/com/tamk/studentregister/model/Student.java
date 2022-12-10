@@ -20,6 +20,7 @@ public class Student extends BaseEntity {
   private String firstName;
   private String lastName;
   private String email;
+  private String password;
 
   @JsonIdentityInfo(
     generator = ObjectIdGenerators.PropertyGenerator.class, 

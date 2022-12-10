@@ -58,4 +58,20 @@ public class CourseService {
     }
     throw new Exception("Course or Student not found");
   }
+
+  public Optional<CourseRegistration> enroll(Long courseId, String studentEmail) throws Exception { 
+    Optional<Course> courseResult = this.findCourseById(courseId);
+    Optional<Student> studentResult = studentService.findStudentByEmail(studentEmail);
+
+    if (courseResult.isPresent() && studentResult.isPresent()) {
+      Student student = studentResult.get();
+      Course course = courseResult.get();
+      Optional<CourseRegistration> courseRegistration = courseRegistrationRepository.findByStudentAndCourse(student, course);
+      if (courseRegistration.isPresent()) {
+        return Optional.empty();
+      }
+      return Optional.of(courseRegistrationRepository.save(new CourseRegistration(course, student)));
+    }
+    throw new Exception("Course or Student not found");
+  }
 }

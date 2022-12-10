@@ -1,4 +1,4 @@
-package com.tamk.studentregister.controller;
+package com.tamk.studentregister.controller.api;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -20,7 +20,7 @@ import com.tamk.studentregister.service.CourseService;
 
 @RestController
 @RequestMapping("/api/courses")
-public class CourseController {
+public class CourseRestController {
   @Autowired
   CourseService courseService;
 
@@ -70,11 +70,11 @@ public class CourseController {
     }
   }
 
-  // POST localhost:8080/api/courses/1/enroll
+  // POST localhost:8080/api/courses/1/enroll?studentId=1
   @PostMapping("/{courseId}/enroll")
-  public ResponseEntity<CourseRegistration> enrollStudent(@PathVariable Long courseId, @RequestParam String studentId) {
+  public ResponseEntity<CourseRegistration> enrollStudent(@PathVariable Long courseId, @RequestParam Long studentId) {
     try {
-      Optional<CourseRegistration> courseRegistration = courseService.enroll(courseId, Long.parseLong(studentId));
+      Optional<CourseRegistration> courseRegistration = courseService.enroll(courseId, studentId);
       if (courseRegistration.isPresent()) {
         return new ResponseEntity<>(courseRegistration.get(), HttpStatus.OK);
       } else {
