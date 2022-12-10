@@ -47,6 +47,7 @@ public class StudentController {
         return new ResponseEntity<>(students, HttpStatus.OK);
       }
     } catch (Exception exception) {
+      System.out.println(exception.getMessage());
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
@@ -63,6 +64,7 @@ public class StudentController {
         return new ResponseEntity<>(newStudent.get(), HttpStatus.CREATED);
       }
     } catch (Exception exception) {
+      System.out.println(exception.getMessage());
       return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
