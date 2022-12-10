@@ -74,7 +74,12 @@ public class CourseController {
   @PostMapping("/{courseId}/enroll")
   public ResponseEntity<CourseRegistration> enrollStudent(@PathVariable Long courseId, @RequestParam String studentId) {
     try {
-      return new ResponseEntity<>(courseService.enroll(courseId, Long.parseLong(studentId)), HttpStatus.OK);
+      Optional<CourseRegistration> courseRegistration = courseService.enroll(courseId, Long.parseLong(studentId));
+      if (courseRegistration.isPresent()) {
+        return new ResponseEntity<>(courseRegistration.get(), HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+      }
     } catch (Exception exception) {
       System.out.println(exception.getMessage());
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);

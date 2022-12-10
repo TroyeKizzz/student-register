@@ -11,4 +11,5 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
   @Override
   ArrayList<Student> findAll();
   Optional<Student> findByEmail(String email);
+  Boolean existsByEmail(String email);
 }

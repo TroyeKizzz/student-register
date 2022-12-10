@@ -43,7 +43,7 @@ public class CourseService {
     return newCourse;
   }
 
-  public CourseRegistration enroll(Long courseId, Long studentId) throws Exception {
+  public Optional<CourseRegistration> enroll(Long courseId, Long studentId) throws Exception {
     Optional<Course> courseResult = this.findCourseById(courseId);
     Optional<Student> studentResult = studentService.findStudentById(studentId);
 
@@ -52,9 +52,9 @@ public class CourseService {
       Course course = courseResult.get();
       Optional<CourseRegistration> courseRegistration = courseRegistrationRepository.findByStudentAndCourse(student, course);
       if (courseRegistration.isPresent()) {
-        return courseRegistration.get();
+        return Optional.empty();
       }
-      return courseRegistrationRepository.save(new CourseRegistration(course, student));
+      return Optional.of(courseRegistrationRepository.save(new CourseRegistration(course, student)));
     }
     throw new Exception("Course or Student not found");
   }
