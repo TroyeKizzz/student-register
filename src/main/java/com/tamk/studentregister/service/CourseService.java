@@ -92,4 +92,18 @@ public class CourseService {
     }
     return true;
   }
+
+  public Optional<Course> delete(Long courseId) {
+    try {
+      Optional<Course> searchResult = courseRepository.findById(courseId);
+      if (searchResult.isPresent()) {
+        courseRepository.delete(searchResult.get());
+        return searchResult;
+      }
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
+      return Optional.empty();
+    }
+    return Optional.empty();
+  }
 }

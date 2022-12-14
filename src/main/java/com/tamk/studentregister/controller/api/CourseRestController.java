@@ -85,4 +85,20 @@ public class CourseRestController {
       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
   }
+
+  // POST localhost:8080/api/courses/1/delete
+  @PostMapping("/{courseId}/delete")
+  public ResponseEntity<Boolean> deleteCourse(@PathVariable Long courseId) {
+    try {
+      Optional<Course> course = courseService.delete(courseId);
+      if (course.isPresent()) {
+        return new ResponseEntity<>(true, HttpStatus.OK);
+      } else {
+        return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+      }
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
+      return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+    }
+  }
 }
