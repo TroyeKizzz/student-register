@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title th:text="'Student' + ${student.firstName}"></title>
+    <style>
+      table,
+      td,
+      th {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>First name: <span th:text="${student.firstName}">First name</span></p>
+    <p>Last name: <span th:text="${student.lastName}">Last name</span></p>
+    <p>Email: <span th:text="${student.email}">Email</span></p>
+    <p>
+      Registrations:
+      <span th:text="${student.registrations.size()}">Registrations</span>
+    </p>
+    <table th:if="${student.registrations.size()}">
+      <tr>
+        <th>Course title</th>
+        <th>Course grade</th>
+      </tr>
+      <tr th:each="registration : ${student.registrations}">
+        <td th:text="${registration.course.title}">Course title</td>
+        <td th:if="${registration.grade}" th:text="${registration.grade}">
+          Course grade
+        </td>
+        <td th:unless="${registration.grade}">N/A</td>
+      </tr>
+    </table>
+    <form method="get" th:action="@{/app/students}">
+      <button type="submit">Back</button>
+    </form>
+  </body>
+</html>

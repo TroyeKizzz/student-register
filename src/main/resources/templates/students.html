@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Students</title>
+  </head>
+  <body>
+    <h2>Students</h2>
+    <div th:if="${error}">
+      <h4>Error</h4>
+      <p th:text="${error}">error message</p>
+    </div>
+    <h4>Register new student</h4>
+    <form method="post" th:action="@{/app/students}">
+      <input name="firstName" placeholder="First name" />
+      <input name="lastName" placeholder="Last name" />
+      <input name="email" placeholder="Email" />
+      <button type="submit">Create</button>
+    </form>
+    <ul>
+      <li th:each="student : ${students}">
+        <a th:href="@{/app/students/{id}(id=${student.id})}">
+          <p th:text="${student.firstName} + ' ' + ${student.lastName}">
+            First Last
+          </p>
+        </a>
+      </li>
+    </ul>
+    <form method="get" th:action="@{/app}">
+      <button type="submit">Back</button>
+    </form>
+  </body>
+</html>

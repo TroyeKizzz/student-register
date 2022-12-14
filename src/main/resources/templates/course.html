@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Expression utility objects</title>
+    <title th:text="'Course' + ${course.title}"></title>
   </head>
   <body>
     <p>Title: <span th:text="${course.title}">title</span></p>
@@ -10,11 +10,14 @@
     <p>
       Registrations: <span th:text="${course.registrations.size()}">title</span>
     </p>
-    <form method="post" th:action="'/app/courses/' + ${course.id} + '/enroll'">
+    <form
+      method="post"
+      th:action="@{/app/courses/{id}/enroll(id=${course.id})}"
+    >
       <input name="studentEmail" placeholder="Email" type="email" />
       <button type="submit">Enroll</button>
     </form>
-    <form method="get" action="/app/courses">
+    <form method="get" th:action="@{/app/courses}">
       <button type="submit">Back</button>
     </form>
   </body>

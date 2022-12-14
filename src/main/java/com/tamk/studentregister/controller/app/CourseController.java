@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -67,7 +66,7 @@ public class CourseController {
         model.addAttribute("error", "Course already exists");
         return "courses.html";
       } else {
-        return "courses.html";
+        return "redirect:/app/courses";
       }
     } catch (Exception exception) {
       System.out.println(exception.getMessage());
@@ -88,7 +87,7 @@ public class CourseController {
         throw new Exception("Neither studentId or studentEmail are provided");
       }
       if (courseRegistration.isPresent()) {
-        return "courses.html";
+        return "redirect:/app/courses";
       } else {
         model.addAttribute("error", "You are already enrolled");
         model.addAttribute("courses", courseService.findAll());
