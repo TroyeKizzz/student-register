@@ -71,4 +71,27 @@ public class StudentController {
       return "not-found";
     }
   }
+
+  // POST localhost:8080/app/students/1/edit
+  @PostMapping(path = "/{studentId}/edit", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+  public String save(@PathVariable Long studentId, Student course) {
+    boolean res = studentService.edit(studentId, course);
+    if (res) {
+      return "redirect:/app/students/" + studentId;
+    } else {
+      return "not-found.html";
+    }
+  }
+
+  // GET localhost:8080/app/students/1/edit
+  @GetMapping("/{studentId}/edit")
+  public String edit(@PathVariable Long studentId, Model model) {
+    Optional<Student> student = studentService.findStudentById(studentId);
+    if (student.isPresent()) {
+      model.addAttribute("student", student.get());
+      return "edit-student.html";
+    } else {
+      return "not-found.html";
+    }
+  }
 }

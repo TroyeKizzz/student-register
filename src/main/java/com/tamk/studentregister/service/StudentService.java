@@ -38,4 +38,23 @@ public class StudentService {
     }
     return newStudent;
   }
+
+  public boolean edit(Long studentId, Student editedStudent) {
+    try {
+      Optional<Student> searchResult = studentRepository.findById(studentId);
+      if (searchResult.isPresent()) {
+        Student student = searchResult.get();
+        student.setFirstName(editedStudent.getFirstName());
+        student.setLastName(editedStudent.getLastName());
+        student.setEmail(editedStudent.getEmail());
+        studentRepository.save(student);
+      } else {
+        return false;
+      }
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
+      return false;
+    }
+    return true;
+  }
 }

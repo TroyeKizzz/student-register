@@ -74,4 +74,22 @@ public class CourseService {
     }
     throw new Exception("Course or Student not found");
   }
+
+  public boolean edit(Long courseId, Course editedCourse) {
+    try {
+      Optional<Course> searchResult = courseRepository.findById(courseId);
+      if (searchResult.isPresent()) {
+        Course course = searchResult.get();
+        course.setDescription(editedCourse.getDescription());
+        course.setTitle(editedCourse.getTitle());
+        courseRepository.save(course);
+      } else {
+        return false;
+      }
+    } catch (Exception exception) {
+      System.out.println(exception.getMessage());
+      return false;
+    }
+    return true;
+  }
 }

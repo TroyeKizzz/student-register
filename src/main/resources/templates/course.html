@@ -17,6 +17,9 @@
       <input name="studentEmail" placeholder="Email" type="email" />
       <button type="submit">Enroll</button>
     </form>
+    <form method="get" th:action="@{/app/courses/{id}/edit(id=${course.id})}">
+      <button type="submit">Edit</button>
+    </form>
     <form method="get" th:action="@{/app/courses}">
       <button type="submit">Back</button>
     </form>

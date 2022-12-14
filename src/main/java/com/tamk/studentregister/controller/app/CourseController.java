@@ -74,7 +74,7 @@ public class CourseController {
     }
   }
 
-  // POST localhost:8080/api/courses/1/enroll
+  // POST localhost:8080/app/courses/1/enroll
   @PostMapping("/{courseId}/enroll")
   public String enrollStudent(@PathVariable Long courseId, @RequestParam(required = false) Long studentId, @RequestParam(required = false) String studentEmail, Model model) {
     try {
@@ -95,6 +95,29 @@ public class CourseController {
       }
     } catch (Exception exception) {
       System.out.println(exception.getMessage());
+      return "not-found.html";
+    }
+  }
+
+  // POST localhost:8080/app/courses/1/edit
+  @PostMapping(path = "/{courseId}/edit", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+  public String save(@PathVariable Long courseId, Course course) {
+    boolean res = courseService.edit(courseId, course);
+    if (res) {
+      return "redirect:/app/courses/" + courseId;
+    } else {
+      return "not-found.html";
+    }
+  }
+
+  // GET localhost:8080/app/courses/1/edit
+  @GetMapping("/{courseId}/edit")
+  public String edit(@PathVariable Long courseId, Model model) {
+    Optional<Course> course = courseService.findCourseById(courseId);
+    if (course.isPresent()) {
+      model.addAttribute("course", course.get());
+      return "edit-course.html";
+    } else {
       return "not-found.html";
     }
   }

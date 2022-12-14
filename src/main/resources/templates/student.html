@@ -34,6 +34,9 @@
         <td th:unless="${registration.grade}">N/A</td>
       </tr>
     </table>
+    <form method="get" th:action="@{/app/students/{id}/edit(id=${student.id})}">
+      <button type="submit">Edit</button>
+    </form>
     <form method="get" th:action="@{/app/students}">
       <button type="submit">Back</button>
     </form>
